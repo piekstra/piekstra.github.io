@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-vpEupdTtjUaWSRAxSNh3Wc8QYyOWDntPzRJ37bjeDOo='; style-src 'sha256-Lar6AdI9tvyVvFkm2WXHtuLQqvmm7tqyE7OYlmoYFt8='; base-uri 'none'; form-action 'none'">
+    <title>modmed: finishing the sign-in</title>
+    <style>
+      body { font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; color: #1f2328; background: #fff; }
+      main { max-width: 36rem; margin: 4rem auto; padding: 0 1.25rem; }
+      h1 { font-size: 1.375rem; margin: 0 0 0.75rem; }
+      code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, monospace; }
+      @media (prefers-color-scheme: dark) { body { color: #e6edf3; background: #0d1117; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Finishing the sign-in</h1>
+      <p id="status">This page passes the practice's answer to the <code>modmed</code> program waiting on this computer, at <code>http://127.0.0.1:7470/callback</code>. It keeps nothing and sends nothing anywhere else.</p>
+      <noscript><p>Passing the answer on needs JavaScript. Turn it on for this page, then run <code>modmed auth login</code> again.</p></noscript>
+    </main>
+    <script>
+      (function () {
+        var query = location.search;
+        if (!/[?&](code|error)=/.test(query)) {
+          document.getElementById("status").textContent =
+            "There is nothing to pass on. This page is the last step of a modmed sign-in, " +
+            "which starts with: modmed auth login --profile <NAME> --org <ORG>";
+          return;
+        }
+        location.replace("http://127.0.0.1:7470/callback" + query);
+      })();
+    </script>
+  </body>
+</html>

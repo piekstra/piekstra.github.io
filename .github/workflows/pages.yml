@@ -1,0 +1,54 @@
+# Publishes site/ to GitHub Pages: the https pages Epic and ModMed redirect a sign-in to,
+# which pass the answer on to mychart or modmed on 127.0.0.1 (README.md).
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time, and never cancel one half-way.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # Build and deploy are separate jobs, as GitHub's Pages starter does: the
+  # artifact is complete once its job ends, so deploy never looks for it too
+  # early, and re-running a failed deploy reuses it instead of uploading a
+  # second one under the same name.
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      # site/ is plain HTML, so there is nothing for configure-pages to set up
+      # (a base path or a generator's settings), and the build job needs no
+      # access to the Pages API.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

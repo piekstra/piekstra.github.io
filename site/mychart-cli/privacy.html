@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'sha256-twSizAFZkw4r0QPulj8gz+PN+by4oFQ7sIMVb1InRfg='; base-uri 'none'; form-action 'none'">
+    <title>mychart: Privacy</title>
+    <style>
+      body { font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; color: #1f2328; background: #fff; }
+      main { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem 3rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.25rem; }
+      h2 { font-size: 1.125rem; margin: 1.75rem 0 0.5rem; }
+      code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, monospace; }
+      a { color: #0969da; }
+      @media (prefers-color-scheme: dark) { body { color: #e6edf3; background: #0d1117; } a { color: #4493f8; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>mychart: Privacy</h1>
+      <p>Effective 16 November 2026. mychart runs on your own computer. There is no mychart server, account or company between you and your health system.</p>
+      <h2>What it reads</h2>
+      <p>The records your health system lets your MyChart account share with apps, through Epic's patient-access FHIR API: allergies, conditions, medications, immunizations, lab results and vital signs, procedures, encounters, care plans and goals, clinical notes, and the reports and scanned documents attached to them, and, where your health system offers them, insurance claims and your questionnaire answers. For someone whose records you see through proxy access, only what that access allows. MyChart may let you choose what to share when you sign in.</p>
+      <h2>What it changes</h2>
+      <p>Nothing. mychart never writes to your health system.</p>
+      <h2>Where your records go</h2>
+      <p>Only to the computer mychart runs on: shown in its output, or saved to a file or folder you name. mychart sends them to no other server. It sells and shares nothing, and has no advertising, analytics, tracking or crash reports.</p>
+      <h2>What it keeps on your computer</h2>
+      <ul>
+        <li>Your sign-ins (access tokens, and a key made on your computer), encrypted under <code>~/.config/mychart/vault/</code> with one key in the macOS Keychain.</li>
+        <li>Your profiles and who each one signed in (patient ids, the labels you chose, and the health system), with no record contents, in <code>~/.config/mychart/config.json</code>.</li>
+        <li>Each profile's own browser profile, which keeps your health system's sign-in cookies.</li>
+        <li>A copy of Epic's public directory of health systems, under <code>~/.cache/mychart/</code>.</li>
+      </ul>
+      <h2>Who else sees anything</h2>
+      <ul>
+        <li>Your health system and Epic see your sign-in and each request mychart makes, as for any app you link to MyChart.</li>
+        <li>GitHub hosts this page and the sign-in page. At the end of a sign-in your browser opens <code>https://piekstra.github.io/mychart-cli/callback</code>, which passes the health system's one-time sign-in code to mychart on your computer. GitHub's servers may log that address with the code in it. The code can be redeemed only once, and only with a secret that never leaves your computer. No record passes through GitHub.</li>
+        <li>mychart's developers receive nothing: no records, no sign-ins, no usage data.</li>
+      </ul>
+      <h2>Ending access and deleting data</h2>
+      <p><code>mychart auth logout</code> deletes the stored sign-in. "Manage My Linked Apps and Devices" in MyChart ends mychart's access at your health system. Files mychart saved stay where you saved them until you delete them.</p>
+      <h2>Changes and questions</h2>
+      <p>This page may change. The current version is always at this address, and every earlier version is in the repository's history. Ask questions in the repository's <a href="https://github.com/piekstra/mychart-cli/issues">issues</a>, and never put health information in an issue.</p>
+    </main>
+  </body>
+</html>
