@@ -9,3 +9,8 @@ Those two projects moved to the [own-your-health](https://github.com/own-your-he
 - `mychart-cli/terms` and `mychart-cli/privacy` are the terms and privacy pages the Epic registration links to.
 
 When a project changes its callback page, copy the change here too. `make check` (run by CI) fails if a callback page stops forwarding to its port.
+
+## License
+
+Copyright (C) 2026 Caleb Piekstra. Licensed under the GNU Affero General Public
+License, version 3 only (AGPL-3.0-only); see [LICENSE](LICENSE).
